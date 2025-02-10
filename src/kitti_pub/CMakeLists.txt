@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(kitti_publisher)
+project(kitti_pub)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -7,9 +7,19 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+
+
+# Add executable target for the publisher node
+add_executable(kitti_pub_node src/kitti_pub_node.cpp)
+ament_target_dependencies(kitti_pub_node rclcpp sensor_msgs)
+
+# // Install executable
+install(TARGETS
+  kitti_pub_node
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
