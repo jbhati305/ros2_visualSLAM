@@ -7,6 +7,7 @@
         "/usr/include/c++/13",
         "/opt/ros/jazzy/include/**",
         "/home/jitesh/ros2_visualSLAM/src/ros2_kitti_publishers/include/**",
+        "home/jitesh/ros2_visualSLAM/src/kitti_pub/include/**",
         "/usr/include/**"
         
       ],

@@ -4,4 +4,5 @@ CompileFlags:
         -I/usr/local/include,
         -I/usr/include,
         -I/opt/ros/jazzy/include/**,
-        -I/opt/ros/jazzy/include/**/include]
+        -I/opt/ros/jazzy/include/**/include
+        -I/home/jitesh/ros2_visualSLAM/src/kitti_pub/include/**]
