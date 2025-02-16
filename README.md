@@ -2,6 +2,11 @@
 
 This repository contains the `kitti_pub` package which publishes KITTI dataset point clouds and images to ROS2 topics.
 
+## Video Demonstration
+
+[![Screencast](Img%20&%20Video/Screencast%20from%202025-02-16%2006-29-09.webm)](Img%20&%20Video/Screencast%20from%202025-02-16%2006-29-09.webm)
+
+
 ## Directory Structure
 
 ```
@@ -61,5 +66,6 @@ A launch file is provided in the `launch` folder. To run the node:
    ```bash
    ros2 launch kitti_pub kitti_pub.launch.py
    ```
+
 
 Happy SLAM-ing!

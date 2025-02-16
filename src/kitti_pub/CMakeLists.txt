@@ -36,14 +36,10 @@ install(TARGETS
 
 # Install launch files
 install(
-  DIRECTORY launch/
-  DESTINATION share/${PROJECT_NAME}/
+  DIRECTORY launch rviz
+  DESTINATION share/${PROJECT_NAME}
 )
 
-# New: Install rviz configuration files from the new directory
-install(
-  DIRECTORY rviz/
-  DESTINATION share/${PROJECT_NAME}/
-)
+
 
 ament_package()
