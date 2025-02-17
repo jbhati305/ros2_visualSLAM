@@ -4,7 +4,7 @@ This repository contains the `kitti_pub` package which publishes KITTI dataset p
 
 ## Video Demonstration
 
-[![Screencast](Img%20&%20Video/Screencast%20from%202025-02-16%2006-29-09.webm)](Img%20&%20Video/Screencast%20from%202025-02-16%2006-29-09.webm)
+[![Screencast](Img%20&%20Video/Screencast%20from%202025-02-16%2006-29-09.webm)](Img%20&%20Video/screencast.mp4)
 
 
 ## Directory Structure
