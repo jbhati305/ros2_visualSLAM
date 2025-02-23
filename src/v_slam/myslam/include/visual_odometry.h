@@ -6,46 +6,43 @@
 
 #include "common_include.h"
 #include "dataset.h"
-// #include "frontend.h"
-// #include "backend.h"
-// #include "viewer.h"
+#include "frontend.h"
+#include "backend.h"
+#include "viewer.h"
 
 namespace myslam {
 class VO {
 public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-  typedef std::shared_ptr<VO> Ptr;
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+	typedef std::shared_ptr<VO> Ptr;
 
  
-  VO(std::string &config_path);
+	VO(std::string &config_path);
 
-  /*
-  @return true if success
-  */
-  bool Init();
+	// Initialization
+	bool Init();
 
-  // start VO in the dataset
-  void Run();
+	// start VO in the dataset
+	void Run();
 
-  // Make a step forward in dataset
-  bool Step();
+	// Make a step forward in dataset
+	bool Step();
 
-  // frontend status
+	// frontend status
 
-  // TODO- define the enum FrontendStatus
-//   FrontendStatus GetFrontendStatus() const { return frontend_->GetStatus(); }
+	FrontendStatus GetFrontendStatus() const { return frontend_->GetStatus(); }
 
 private:
-  bool inited_ = false;
-  std::string config_file_path_;
+	bool inited_ = false;
+	std::string config_file_path_;
+	Map::Ptr map_ = nullptr;
 
 
-//   TODO - DECLARING THE POINTERS TO THE OBJECTS OF THE CLASSES
-//   Frontend::Ptr frontend_ = nullptr;
-//   Backend::Ptr backend_ = nullptr;
-//   Viewer::Ptr viewer_ = nullptr;
+	Frontend::Ptr frontend_ = nullptr;
+	Backend::Ptr backend_ = nullptr;
+	Viewer::Ptr viewer_ = nullptr;
 
-  Dataset::Ptr dataset_ = nullptr;
+	Dataset::Ptr dataset_ = nullptr;
 
 }; // class VO
 

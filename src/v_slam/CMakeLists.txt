@@ -11,11 +11,17 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O3")
 
+# Set the build type if it isn't already for ununsed parameter warnings
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wno-unused-parameter -Wno-unused-but-set-variable)
+endif()
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/myslam/cmake_modules)
 
 # find package 
 find_package(ament_cmake REQUIRED)
+find_package(ament_index_cpp REQUIRED)
+
 find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
@@ -136,7 +142,7 @@ ament_target_dependencies(test_node
 )
 
 target_link_libraries(test_node
- PUBLIC myslam_lib
+ PUBLIC myslam_lib ament_index_cpp::ament_index_cpp
 )
 
 set_target_properties(test_node PROPERTIES INSTALL_RPATH "\$ORIGIN")
@@ -150,6 +156,11 @@ install(TARGETS test_node myslam_lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION lib/${PROJECT_NAME}
   INCLUDES DESTINATION include/${PROJECT_NAME}
+)
+
+install(
+  DIRECTORY config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 

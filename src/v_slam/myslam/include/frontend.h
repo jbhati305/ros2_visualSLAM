@@ -184,7 +184,7 @@ class Frontend
 	// utilities
 	// feature detector and descriptor in opencv
 	// cv::Ptr<cv::GFTTDetector> gftt_;
-	cv::Ptr<cv::GFTTDetector> gftt_;
+	cv::Ptr<cv::ORB> orb_;
 	
 	// gftt_ = cv::GFTTDetector::create();
 

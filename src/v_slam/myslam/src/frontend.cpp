@@ -14,9 +14,13 @@ namespace myslam
 {
 Frontend::Frontend()
 {
-	gftt_ = cv::GFTTDetector::create(Config::Get<int>("num_features"), 0.01, 10);
-	num_features_init_ = Config::Get<int>("num_features_init");
-	num_features_ = Config::Get<int>("num_features");
+    // Replace the gftt_ initialization:
+    // gftt_ = cv::GFTTDetector::create(Config::Get<int>("num_features"), 0.01, 10);
+    // With ORB initialization. You can also set max features via Config if needed.
+    orb_ = cv::ORB::create(Config::Get<int>("num_features"));
+    
+    num_features_init_ = Config::Get<int>("num_features_init");
+    num_features_ = Config::Get<int>("num_features");
 }
 
 bool Frontend::AddFrame(myslam::Frame::Ptr frame)
@@ -349,28 +353,25 @@ bool Frontend::StereoInit()
 
 int Frontend::DetectFeatures()
 {
-	int	cnt_detected;
-
-	// Creating a Mask 
-	cv::Mat mask(current_frame_->left_img_.size(), CV_8UC1, 255);
-	for (auto &feat : current_frame_->features_left_)
-	{
-		cv::rectangle(mask, feat->position_.pt - cv::Point2f(10, 10),
-						feat->position_.pt + cv::Point2f(10, 10), 0, cv::FILLED);
-	}
-
-	std::vector<cv::KeyPoint> keypoints;
-	gftt_->detect(current_frame_->left_img_, keypoints, mask);
-	cnt_detected = 0;
-
-	// Creating a Feature object for each keypoint
-	for (auto &kp : keypoints)
-	{
-		current_frame_->features_left_.push_back(Feature::Ptr(new Feature(current_frame_,kp)));
-		cnt_detected++;
-	}
-	LOG(INFO) << "Detect " << cnt_detected << " new features";
-	return (cnt_detected);
+    int cnt_detected;
+    cv::Mat mask(current_frame_->left_img_.size(), CV_8UC1, 255);
+    for (auto &feat : current_frame_->features_left_)
+    {
+        cv::rectangle(mask, feat->position_.pt - cv::Point2f(10, 10),
+                      feat->position_.pt + cv::Point2f(10, 10), 0, cv::FILLED);
+    }
+    std::vector<cv::KeyPoint> keypoints;
+    // Replace this call:
+    // gftt_->detect(current_frame_->left_img_, keypoints, mask);
+    // With ORB detect:
+    orb_->detect(current_frame_->left_img_, keypoints, mask);
+    cnt_detected = static_cast<int>(keypoints.size());
+    for (auto &kp : keypoints)
+    {
+        current_frame_->features_left_.push_back(Feature::Ptr(new Feature(current_frame_, kp)));
+    }
+    LOG(INFO) << "Detect " << cnt_detected << " new features";
+    return cnt_detected;
 }
 
 int Frontend::FindFeaturesInRight()

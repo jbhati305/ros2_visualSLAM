@@ -1,4 +1,5 @@
 #include <chrono>
+#include <string>
 
 #include "visual_odometry.h"
 #include "config.h"
@@ -20,21 +21,21 @@ namespace myslam {
         dataset_ = Dataset::Ptr(new Dataset(Config::Get<std::string>("dataset_dir")));
         CHECK_EQ(dataset_->Init(), true);
         
-        // TODO - Init function
-        // frontend_ = Frontend::Ptr(new Frontend);
-        // backend_ = Backend::Ptr(new Backend);
-        // viewer_ = Viewer::Ptr(new Viewer);
-        // map_ = Map::Ptr(new Map);
+        
+        frontend_ = Frontend::Ptr(new Frontend);
+        backend_ = Backend::Ptr(new Backend);
+        viewer_ = Viewer::Ptr(new Viewer);
+        map_ = Map::Ptr(new Map);
 
-        // frontend_->SetBackend(backend_);
-        // frontend_->SetMap(map_);
-        // frontend_->SetViewer(viewer_);
-        // frontend_->SetCamera(dataset_->GetCamera(0), dataset_->GetCamera(1));
+        frontend_->SetBackend(backend_);
+        frontend_->SetMap(map_);
+        frontend_->SetViewer(viewer_);
+        frontend_->SetCamera(dataset_->GetCamera(0), dataset_->GetCamera(1));
 
-        // backend_->SetMap(map_);
-        // backend_->SetCamera(dataset_->GetCamera(0), dataset_->GetCamera(1));
+        backend_->SetMap(map_);
+        backend_->SetCameras(dataset_->GetCamera(0), dataset_->GetCamera(1));
 
-        // viewer_->SetMap(map_);
+        viewer_->SetMap(map_);
 
         return true;
     }
@@ -46,9 +47,9 @@ namespace myslam {
         }
 
         // when the dataset is finished, we stop the viewer
-        // TODO - Run function
-        // backend_->Stop();
-        // viewer_->Close();
+        
+        backend_->Stop();
+        viewer_->Close();
 
         LOG(INFO) << "VO exit";
     }
@@ -58,15 +59,14 @@ namespace myslam {
         Frame::Ptr new_frame = dataset_->NextFrame();
         if(new_frame == nullptr) return false;
         
-        // TODO - Step function
 
-        // auto t1 = std::chrono::steady_clock::now();
-        // bool success = frontend_->AddFrame(new_frame);
-        // auto t2 = std::chrono::steady_clock::now();
+        auto t1 = std::chrono::steady_clock::now();
+        bool success = frontend_->AddFrame(new_frame);
+        auto t2 = std::chrono::steady_clock::now();
 
-        // auto time_used = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
-        // LOG(INFO) << "VO cost time: " << time_used.count() << " seconds.";
-        // return success;
-        return false;
+        auto time_used = std::chrono::duration_cast<std::chrono::duration<double>>(t2 - t1);
+        LOG(INFO) << "VO cost time: " << time_used.count() << " seconds.";
+        return success;
+        // return false;
     }
 }
