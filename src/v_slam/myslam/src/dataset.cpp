@@ -68,10 +68,10 @@ namespace myslam {
             
             // Create a new Camera object using the intrinsic parameters.
             // The parameters include focal lengths, principal points, baseline (using norm of t), and pose.
-            // TODO CAMERA PTR
-            // Camera::Ptr new_camera(new Camera(K(0, 0), K(1, 1), K(0, 2), K(1, 2),
-            //                                   t.norm(), SE3(SO3(), t)));
-            // cameras_.push_back(new_camera);
+          
+            Camera::Ptr new_camera(new Camera(K(0, 0), K(1, 1), K(0, 2), K(1, 2),
+                                              t.norm(), SE3(SO3(), t)));
+            cameras_.push_back(new_camera);
             LOG(INFO) << "Camera " << i << " extrinsics: " << t.transpose();
         }
         fin.close();

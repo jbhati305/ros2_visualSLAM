@@ -12,8 +12,8 @@ Description:    Declares the Frame struct which represents a single frame in the
 #define MYSLAM_FRAME_H
 
 #include "common_include.h"
-// TODO CAMERA.H
-// #include "camera.h"
+
+#include "camera.h"
 
 namespace myslam {
 

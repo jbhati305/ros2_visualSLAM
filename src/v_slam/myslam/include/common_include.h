@@ -111,7 +111,7 @@ typedef Sophus::SE3d SE3;
 typedef Sophus::SO3d SO3;
 
 // for cv
-#include <opencv2/core/core.hpp>
+#include <opencv4/opencv2/core.hpp>
 
 using cv::Mat;
 

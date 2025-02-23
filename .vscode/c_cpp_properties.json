@@ -8,7 +8,9 @@
         "/opt/ros/jazzy/include/**",
         "/home/jitesh/ros2_visualSLAM/src/ros2_kitti_publishers/include/**",
         "home/jitesh/ros2_visualSLAM/src/kitti_pub/include/**",
-        "/usr/include/**"
+        "/usr/include/**",
+        "/home/jitesh/ros2_visualSLAM/src/v_slam/myslam/include",
+        "/usr/include/opencv4/**"
         
       ],
       "compilerPath": "/usr/bin/clang++",

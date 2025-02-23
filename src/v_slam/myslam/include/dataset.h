@@ -4,7 +4,6 @@ Description: Declares the Dataset class.
             needed for the SLAM system.
 */
 
-
 #pragma once
 #ifndef MYSLAM_DATASET_H
 #define MYSLAM_DATASET_H
@@ -12,31 +11,28 @@ Description: Declares the Dataset class.
 // include some headers
 #include "common_include.h"
 #include "frame.h"
-// TODO: include the header files
-// #include "camera.h"
+
+#include "camera.h"
 
 namespace myslam {
-    class Dataset{
-        public:
-            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
-            typedef std::shared_ptr<Dataset> Ptr;
-            Dataset(const std::string &dataset_path);
-            bool Init();
+class Dataset {
+public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  typedef std::shared_ptr<Dataset> Ptr;
+  Dataset(const std::string &dataset_path);
+  bool Init();
 
-            Frame::Ptr NextFrame();
-            // TODO CAMERA AND FRAME POINTERS
-            // Camera::Ptr GetCamera(int camera_id) const { return cameras_.at(camera_id); }
+  Frame::Ptr NextFrame();
 
-        private:
-            std::string dataset_path_;
-            int current_image_index_ = 0;
+  Camera::Ptr GetCamera(int camera_id) const { return cameras_.at(camera_id); }
 
-            // TODO CAMERA VECTOR
-            // std::vector<Camera::Ptr> cameras_;
-            
-    };
+private:
+  std::string dataset_path_;
+  int current_image_index_ = 0;
 
-}
+  std::vector<Camera::Ptr> cameras_;
+};
 
+} // namespace myslam
 
 #endif // MYSLAM_DATASET_H
